@@ -3,7 +3,7 @@ autor s-evg https://github.com/s-evg'''
 import telebot
 import random
 
-TOKEN = '1696499266:AAHpWvxA_gjzsEPJXYVnoj3dWOPOwzAOLss'
+TOKEN = ''
 
 bot = telebot.TeleBot(TOKEN)
 
