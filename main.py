@@ -1,11 +1,14 @@
 ''' Telegram bot Guess number v 0.1 / Телеграм бот Угадай число 0.1
 autor s-evg https://github.com/s-evg'''
-import telebot
-import random
+import telebot, random, os
+from flask import Flask, request
 
-TOKEN = ''
 
+TOKEN = os.environ.get('TOKEN')
+APP_URL = f'https://git.heroku.com/guesssnumber.git/{TOKEN}'
 bot = telebot.TeleBot(TOKEN)
+server = Flask(__name__)
+
 
 HELP = '''
 Это бот "Угадай число".
@@ -35,7 +38,6 @@ def help(message):
         )
     )
     bot.send_message(message.chat.id, HELP, reply_markup=keyboard)
-
 
 
 @bot.message_handler(commands=['newgame'])
@@ -73,4 +75,21 @@ def GuessNumber(message):
 
         break
 
-bot.polling(none_stop=True)
+
+@server.route('/' + TOKEN, method=['POST'])
+def get_message():
+    json_string = request.get_data().decode('utf-8')
+    update = telebot.types.Update.de_json(json_string)
+    bot.process_new_updates([update])
+    return '!', 200
+
+
+@server.route('/')
+def webhook():
+    bot.remove_webhook()
+    bot.set_webhook(url=APP_URL)
+    return '!', 200
+
+
+if __name__ == '__main__':
+    server.run(host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))
