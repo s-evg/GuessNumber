@@ -1,4 +1,4 @@
-''' Telegram bot Guess number v 0.1 / Телеграм бот Угадай число 0.1
+''' Telegram bot Guess number v 0.2 / Телеграм бот Угадай число 0.2
 autor s-evg https://github.com/s-evg'''
 import telebot, random, os
 from flask import Flask, request
