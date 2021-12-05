@@ -5,7 +5,7 @@ from flask import Flask, request
 
 
 TOKEN = os.environ.get('TOKEN')
-APP_URL = f'https://git.heroku.com/guesssnumber.git/{TOKEN}'
+APP_URL = f'https://guesssnumber.herokuapp.com//{TOKEN}'
 bot = telebot.TeleBot(TOKEN)
 server = Flask(__name__)
 
