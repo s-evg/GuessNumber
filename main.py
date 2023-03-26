@@ -60,7 +60,7 @@ def GuessNumber(message):
         bot.register_next_step_handler(msg, GuessNumber)
         return
 
-    while text != HiddenNumber:         # Собственно самая главная функция в этом боте!
+    if text != HiddenNumber:         # Собственно самая главная функция в этом боте!
         print(message.text)             # Сравнение числа с загаданным.
         UserNumber = int(message.text)
         if UserNumber > HiddenNumber:
@@ -72,9 +72,6 @@ def GuessNumber(message):
         else:
             bot.send_message(message.chat.id, 'Ты угадал, это число: ' + str(HiddenNumber))
             bot.send_message(message.chat.id, 'Начать новую игру: /newgame' )
-
-        break
-
 
 @server.route('/' + TOKEN, methods=['POST'])
 def get_message():
